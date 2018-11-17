@@ -27,17 +27,23 @@ flexibleClips = true;
 
 deckbox(compartiments, wall, window == 1, true, text1, size1, text2, size2);
 
+
 module window() {
     // left house
+
     translate([(cardW + wall * 2) / 2 - 20, -1, windowPosition + 4])
       rotate([-90, 0, 0])
-        cylinder(h = wall * 2, d = 20);
+        cylinder(h = wall * 2, d1 = 25, d2 = 16);
     
     // middle house
-    translate([(cardW + wall * 2) / 2, -1, windowPosition]) rotate([-90, 0, 0]) cylinder(h = wall * 2, d = 20);
+    translate([(cardW + wall * 2) / 2, -1, windowPosition]) rotate([-90, 0, 0])
+    cylinder(h = wall * 2, d1 = 25, d2 = 16);
+
     
         // right house
-    translate([(cardW + wall * 2) / 2 + 20, -1, windowPosition + 4]) rotate([-90, 0, 0]) cylinder(h = wall * 2, d = 20);
+    translate([(cardW + wall * 2) / 2 + 20, -1, windowPosition + 4]) rotate([-90, 0, 0]) 
+       cylinder(h = wall * 2, d1 = 25, d2 = 16);
+
 }
 
 
