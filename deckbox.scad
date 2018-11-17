@@ -2,9 +2,9 @@
 //For a normal deck [37]; for 2 decks [37, 37], etc
 compartiments = [37];
 //Thickness of the walls
-wall = 2; // [3, 4, 5, 6, 7, 8]
-//Wether you want a window or not (0 for no, 1 for yes)
-window = 1; // [0, 1] 
+wall = 3; // [3, 4, 5, 6, 7, 8]
+// The kind of window you want (0 for none, 1 for three small, 2 for one big)
+window = 2; // [0, 1, 2]
 
 // First line of text (deck name)
 text1 = "Sir \"Green\" Svenson";
@@ -21,31 +21,47 @@ cardH = 93.4;
 cardT = doubleSleeved ? 0.71 : 0.61;
 
 // Adjust the window showing the house logos
-windowPosition = 20;
+windowPosition = 18;
 
 flexibleClips = true;
 
 deckbox(compartiments, wall, window == 1, true, text1, size1, text2, size2);
 
-
-module window() {
+module bigwindow() {
+    if (window == 2) {
+    hull() {
     // left house
-
     translate([(cardW + wall * 2) / 2 - 20, -1, windowPosition + 4])
       rotate([-90, 0, 0])
-        cylinder(h = wall * 2, d1 = 25, d2 = 16);
+        cylinder(h = wall * 2, d1 = 20, d2 = 16);
     
     // middle house
     translate([(cardW + wall * 2) / 2, -1, windowPosition]) rotate([-90, 0, 0])
-    cylinder(h = wall * 2, d1 = 25, d2 = 16);
-
-    
+    cylinder(h = wall * 2, d1 = 20, d2 = 16);
+            
         // right house
     translate([(cardW + wall * 2) / 2 + 20, -1, windowPosition + 4]) rotate([-90, 0, 0]) 
-       cylinder(h = wall * 2, d1 = 25, d2 = 16);
-
+       cylinder(h = wall * 2, d1 = 20, d2 = 16);
+    }
+    }
 }
 
+module threewindows() {
+    if (window == 1) {
+    // left house
+    translate([(cardW + wall * 2) / 2 - 20, -1, windowPosition + 4])
+      rotate([-90, 0, 0])
+        cylinder(h = wall * 2, d1 = 20, d2 = 16);
+    
+    // middle house
+    translate([(cardW + wall * 2) / 2, -1, windowPosition]) rotate([-90, 0, 0])
+    cylinder(h = wall * 2, d1 = 20, d2 = 16);
+            
+        // right house
+    translate([(cardW + wall * 2) / 2 + 20, -1, windowPosition + 4]) rotate([-90, 0, 0]) 
+       cylinder(h = wall * 2, d1 = 20, d2 = 16);
+    }
+}
 
 module deckbox(
   compartiments = [60],
@@ -124,9 +140,8 @@ module deckbox(
        linear_extrude(height = 2)
          import (file = "keyforge.dxf");
 
-    if(window){
-        window();
-    }    
+    threewindows();
+    bigwindow();
 }
 
   if(lid){
